@@ -7,7 +7,9 @@
   "scripts": {
     "start": "npm run migrate && nodemon index.js",
     "migrate": "npx prisma migrate dev --name init",
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "postinstall": "prisma generate",
+    "build": "prisma generate"
   },
   "keywords": [],
   "author": "",
