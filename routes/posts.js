@@ -6,11 +6,13 @@ const router = Router();
 const prisma = new PrismaClient();
 
 router.get("/", async (req, res) => {
-  console.log();
+  const query = req.body;
   try {
-    const savedPost = await prisma.Post.findMany();
-    console.log(savedPost);
-    res.json({});
+    const savedPost = await prisma.Post.findMany({
+      where: query
+    });
+    // console.log(savedPost);
+    res.json(savedPost);
   } catch (error) {
     console.error(error);
     res
