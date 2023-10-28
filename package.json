@@ -9,7 +9,7 @@
     "migrate": "npx prisma migrate dev --name init",
     "studio": "npx prisma studio",
     "postinstall": "prisma generate",
-    "build": "prisma generate"
+    "build": "prisma generate && npm migrate"
   },
   "keywords": [],
   "author": "",
