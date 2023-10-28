@@ -5,7 +5,7 @@ import { checkUser } from "../libs/libs.js";
 const router = Router();
 const prisma = new PrismaClient();
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
   const query = req.body;
   try {
     const savedPost = await prisma.Post.findMany({
