@@ -43,6 +43,46 @@ router.post("/create", (req, res) => {
   }
 });
 
+router.post("/posts/:postId/vote", async (req, res) => {
+  const { postId } = req.params;
+  const { action } = req.body; // 'action' can be 'upvote' or 'downvote'
+
+  if (action !== 'upvote' && action !== 'downvote') {
+    return res.status(400).json({ response: false, error: "Invalid action" });
+  }
+
+  try {
+    const post = await prisma.Post.findUnique({
+      where: { id: Number(postId) },
+    });
+
+    if (!post) {
+      return res.status(404).json({ response: false, error: "Post not found" });
+    }
+
+    let updatedPost;
+    if (action === 'upvote') {
+      updatedPost = await prisma.Post.update({
+        where: { id: Number(postId) },
+        data: { upVote: post.upVote + 1 },
+      });
+    } else if (action === 'downvote') {
+      updatedPost = await prisma.Post.update({
+        where: { id: Number(postId) },
+        data: { downVote: post.downVote + 1 },
+      });
+    }
+
+    res.status(200).json({ response: true, data: updatedPost });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      response: false,
+      error: "Failed to update the post votes",
+    });
+  }
+});
+
 // router.delete("/delete/:postId", async (req, res) => {
 //   try {
 //     const postId = req.params.postId;
