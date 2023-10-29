@@ -43,7 +43,7 @@ router.post("/create", (req, res) => {
   }
 });
 
-router.post("/posts/:postId/vote", async (req, res) => {
+router.post("/:postId/vote", async (req, res) => {
   const { postId } = req.params;
   const { action } = req.body; // 'action' can be 'upvote' or 'downvote'
 
