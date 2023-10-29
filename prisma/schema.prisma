@@ -22,8 +22,8 @@ model Post {
   contentString String
   authorId      String
   time          DateTime @default(now())
-  // user          User      @relation(fields: [postUserId], references: [id])
-  // Comment       Comment[]
+  upVote        Int      @default(0)
+  downVote      Int      @default(0)
 }
 
 model Comment {
@@ -32,6 +32,6 @@ model Comment {
   postId        Int      @unique
   authorId      String
   time          DateTime @default(now())
-  // user          User   @relation(fields: [postUserId], references: [id])
-  // mainPost      Post   @relation(fields: [postId], references: [id])
+  upVote        Int      @default(0)
+  downVote      Int      @default(0)
 }
